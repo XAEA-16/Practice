@@ -1,0 +1,12 @@
+
+# CMD to Create the docker volume
+docker volume create --name my-vol --opt type=none --opt device=/home/ubuntu/docker/volume --opt o=bind
+
+# CMD to attach volume with the container 
+docker run -d --mont source=<vol-name>,target=<> -p 8000:8000 <image-name>
+
+
+why do i need to mention p 8000:8000
+The reason you need to use -p 8000:8000 in your docker run command, even if you've used EXPOSE 8000 in your Dockerfile, 
+is because EXPOSE only tells Docker that the container listens on that port. It doesn't map it to your host machine.
+The -p 8000:8000 command ensures the port on your host is mapped to the port inside the container, making it accessible from outside the container.

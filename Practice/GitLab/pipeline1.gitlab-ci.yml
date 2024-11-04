@@ -1,0 +1,39 @@
+stages:
+  - clone & build
+  - push
+  - deploy
+
+Cloning_&_build_image:
+  stage: clone & build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - git clone -b master https://github.com/XAEA-16/node-todo-cicd.git
+    - cd node-todo-cicd
+    - docker build . -t node-todo-cicd:latest
+
+  tags: # particullary used for runners
+    - new
+
+push_to_dockerhub:
+  stage: push
+  image: docker:latest
+  services:
+    - docker:dind
+
+  script:
+    - docker tag node-todo-cicd $DOCKER_USERNAME/node-todo-cicd:latest
+    - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+    - docker push $DOCKER_USERNAME/node-todo-cicd:latest
+  tags:
+    - new
+
+deploy_app:
+  stage: deploy
+  script:
+    - echo "Deploying the application..."
+    - docker-compose down & docker-compose up -d -p 8000:8000
+   # - docker run -d -p 8000:8000 node-todo-cicd:latest
+  tags:
+    - new

@@ -1,0 +1,6 @@
+echo "clonning the repo"
+git clone  https://github.com/XAEA-16/node-todo-cicd.git
+cd node-todo-cicd.git
+docker build . -t new-todo
+docker run -d new-todo
+
