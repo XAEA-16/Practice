@@ -1,0 +1,20 @@
+stages:
+  - clone
+  - build
+  - push
+  - deploy
+
+Cloning:
+  stage: clone
+  script:
+    - echo "Here we are going to clone and build"
+building:
+  stage: build
+  script:
+    - echo "here we are doing build"
+push_to_dockerhub:
+  stage: push
+    - echo "here we are going to push to docker hub"
+deploy_app:
+  stage: deploy
+    - echo "here we are going to deploy"
