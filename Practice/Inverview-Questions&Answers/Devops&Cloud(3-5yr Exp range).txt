@@ -1,0 +1,125 @@
+can you rewrite in question answwer format
+Absolutely! Here are the answers to your questions in a Q&A format:
+
+1. How do you uncommit the changes that have already been pushed to GitHub?
+To undo changes that have already been pushed to GitHub:
+
+Revert: git revert <commit_id> - This creates a new commit that undoes the changes.
+
+Reset: git reset --hard <commit_id> followed by git push --force - This resets to a previous commit and forcibly updates the remote repository (use cautiously).
+
+2. If a file is suddenly deleted in git, how do you get it back?
+To recover a deleted file:
+
+Find the commit where the file was deleted: git log --diff-filter=D --summary
+
+Recover the file from the commit before deletion: git checkout <commit_id>^ -- <file_path>
+
+3. Can you increase the size of the root volume without shutting down the instance?
+Yes, you can. Modify the volume size from the EC2 console or CLI, and then use the resize2fs or xfs_growfs command inside the instance to expand the filesystem.
+
+4. If you lost the .pem file, how will you connect to EC2?
+To connect without the .pem file:
+
+Create a new key pair.
+
+Stop the instance, detach the root volume, and attach it to another instance.
+
+Mount the volume, replace the authorized_keys file with the new key, detach, and reattach the volume to the original instance.
+
+5. S3 bucket having a policy for only read-only but you’re having full access for you? Can you modify S3 objects?
+No, you cannot modify S3 objects if the bucket policy is set to read-only, regardless of your individual permissions.
+
+6. What is the difference between Classic ELB and Application ELB?
+Classic ELB: Supports HTTP, HTTPS, TCP, and SSL; basic routing.
+
+Application ELB: Supports HTTP, HTTPS; advanced routing features like path-based and host-based routing, and more granular control.
+
+7. How many subnets are assigned to the routing table?
+Multiple subnets can be assigned to a single route table, but a subnet can only be associated with one route table at a time.
+
+8. In your VPC, if all IPs are exhausted and you require more resources, how do you provision it?
+Create a new VPC or add additional CIDR blocks to the existing VPC.
+
+9. Are you only using CloudWatch for monitoring?
+No, you can integrate CloudWatch with other tools like Prometheus, Grafana, or third-party services for comprehensive monitoring.
+
+10. If you’re using load balancing in 2 availability zones, which load balancer should you use?
+Use an Application Load Balancer (ALB) or Network Load Balancer (NLB) depending on the application requirements.
+
+11. Can you write a Dockerfile to deploy a static webserver in a Linux environment?
+dockerfile
+FROM nginx:alpine
+COPY /path/to/your/static/files /usr/share/nginx/html
+EXPOSE 80
+12. Is it possible to run any VM in AWS without creating any EC2 instance?
+Use AWS Lambda for serverless applications or AWS Fargate to run containers without managing EC2 instances.
+
+13. How to create a pipeline in Jenkins with 10 different stages and execute some stages based on input?
+groovy
+pipeline {
+    stages {
+        stage('Stage 1') {
+            when {
+                expression { params.RUN_STAGE1 == 'true' }
+            }
+            steps {
+                // Your steps here
+            }
+        }
+        // Define other stages similarly
+    }
+}
+14. What are Terraform modules? Have you used any modules in the project?
+Modules: Reusable configurations shared and versioned to organize and encapsulate resources.
+
+Example:
+
+hcl
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+  version = "2.0.0"
+  // configuration
+}
+15. Is it possible to configure communication between two servers that have private access?
+Use a VPC peering connection or VPN for secure communication between private servers in different VPCs.
+
+16. What happens when you delete /var/lib/docker/overlay?
+Deleting /var/lib/docker/overlay will delete overlay filesystem data, causing data loss for running containers. It’s not recommended unless you want to remove all Docker data.
+
+17. Write a simple script that prints “bar” when called with “Foo” and “foo” when called with “bar”. Otherwise, print “Try again”.
+python
+import sys
+
+def main():
+    if len(sys.argv) != 2:
+        print("Try again")
+        return
+    if sys.argv[1] == "Foo":
+        print("bar")
+    elif sys.argv[1] == "bar":
+        print("foo")
+    else:
+        print("Try again")
+
+if __name__ == "__main__":
+    main()
+18. What are the scenarios to implement security in Kubernetes?
+Use RBAC for access control.
+
+Network policies to control traffic.
+
+Pod security policies.
+
+Encrypt data at rest and in transit.
+
+Regular security audits and vulnerability scanning.
+
+19. How would you automatically scale the Pods in your EKS application experiencing higher traffic?
+Use the Horizontal Pod Autoscaler (HPA) based on metrics like CPU or memory usage.
+
+20. How would you set up alerts for CPU usage exceeding 80% for more than 5 minutes in your EKS cluster?
+Use CloudWatch Alarms with Prometheus and Alertmanager to monitor and alert on CPU usage.
+
+21. How would you create a Grafana dashboard to visualize HTTP request latency of your applications running in EKS?
+Use Prometheus to collect metrics and Grafana to visualize them. Create a Grafana dashboard and use Prometheus as the data source to query and display HTTP request latency metrics.
