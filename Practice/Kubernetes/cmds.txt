@@ -1,0 +1,19 @@
+Get Pods:
+bash
+kubectl get pods
+Use: Lists all Pods in the current namespace.
+
+Create Namespace:
+bash
+kubectl create namespace <namespace-name>
+Use: Creates a new namespace. Replace <namespace-name> with your desired namespace name.
+
+Apply Configuration:
+bash
+kubectl apply -f <file.yaml> -n <namespace-name>
+Use: Applies a configuration from a YAML file to the specified namespace. Replace <file.yaml> with your file name and <namespace-name> with your namespace.
+
+Get Pods with Details:
+bash
+kubectl get pods -n <namespace-name> -o wide
+Use: Lists all Pods in the specified namespace with additional details like node name and IP address.
