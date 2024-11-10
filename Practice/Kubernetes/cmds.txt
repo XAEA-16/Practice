@@ -17,3 +17,73 @@ Get Pods with Details:
 bash
 kubectl get pods -n <namespace-name> -o wide
 Use: Lists all Pods in the specified namespace with additional details like node name and IP address.
+
+If you want to describe a deployment
+bash
+kubectl describe deployments -n 
+This command will provide a wealth of information, including:
+
+Name and Namespace of the deployment.
+Labels and Selectors used.
+Replicas (desired, current, updated, available).
+Strategy used for deployment.
+Pod Template details (labels, containers, images, ports).
+Conditions (e.g., progress, available).
+Events related to the deployment.
+
+Rolling Updates:
+A rolling update in Kubernetes means updating your application gradually. 
+Instead of updating all instances (or Pods) at once, it updates them one by one (or in small batches).
+This helps ensure that your application remains available and running during the update process.
+It's like changing tires on a moving car, one tire at a time, so the car keeps moving without stopping completely.
+
+Rollback:
+A rollback is the opposite of a rolling update. 
+If something goes wrong during an update, Kubernetes can revert (or "roll back") your application to a previous, stable version. 
+This ensures that if the new version has issues,
+your application can quickly go back to a working state, 
+minimizing downtime and problems for users.
+
+Key Points:
+Rolling Update: Gradually updates your application without downtime.
+Rollback: Reverts to a previous version if the new update has issues.
+These features help maintain the stability and availability of your application while making updates or changes.
+
+kubectl scale deployment <deployment-name> --replicas=<no of replicas> -n <namespace>
+
+The kubectl scale command is used to change the number of replicas for a deployment. 
+This is helpful when you need to quickly scale your application up or down based on demand.
+
+
+
+In Kubernetes, a Service is an abstract way to expose an application running on a set of Pods as a network service.
+Kubernetes Services allow your applications to communicate with each other and with the outside world. 
+Think of a Service as a stable way to reach a set of Pods, even as those Pods might be dynamically created or destroyed.
+
+Types of Services in Kubernetes:
+ClusterIP:
+
+Default Type: This is the default type of Service.
+Internal Access: It exposes the Service on an internal IP in the cluster. The Service is only reachable within the cluster.
+Use Case: Great for internal communication between different parts of your application.
+
+NodePort:
+
+External Access: Exposes the Service on a static port on each Node's IP.
+Use Case: Useful for exposing services to external traffic through a specific port on each node.
+
+LoadBalancer:
+
+Cloud Provider Integration: Exposes the Service externally using a cloud provider's load balancer.
+Use Case: Ideal for providing external access to your services, typically used in cloud environments.
+
+ExternalName:
+DNS CNAME: Maps the Service to a DNS name (i.e., externalname type Services return a CNAME record for the external name).
+Use Case: Useful for pointing to services outside of your Kubernetes cluster, like external databases.
+
+Summary:
+ClusterIP: Internal access only.
+
+NodePort: External access via a specific port on each node.
+LoadBalancer: External access via a cloud provider's load balancer.
+ExternalName: Maps the service to an external DNS name.
