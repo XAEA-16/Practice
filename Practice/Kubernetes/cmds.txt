@@ -87,3 +87,24 @@ ClusterIP: Internal access only.
 NodePort: External access via a specific port on each node.
 LoadBalancer: External access via a cloud provider's load balancer.
 ExternalName: Maps the service to an external DNS name.
+
+kubectl apply -f deployment.yml --dry-run=client
+
+The command kubectl apply -f deployment.yml --dry-run=client is used to simulate
+ the application of the deployment.yml file without actually deploying it to your Kubernetes cluster. 
+This is a useful way to validate and test your configuration files.
+
+
+what is crashloop backof in kubernetes
+CrashLoopBackOff is a Kubernetes status indicating that a container within a pod is repeatedly crashing and restarting.
+This happens when Kubernetes tries to restart the container, but it keeps failing1.
+    Kubernetes introduces a delay between restarts, known as a backoff period, which increases exponentially with each failed attempt.
+
+Key Points:
+Restart Loop: The container crashes and Kubernetes restarts it, creating a loop.
+Backoff Period: Kubernetes waits longer between each restart attempt (e.g., 10s, 20s, 40s, etc.).
+Default Policy: By default, the restart policy is set to Always, meaning Kubernetes will keep trying to restart the container.
+Resolution: To fix it, you need to identify and address the root cause of the container crashes.
+
+echo "<password>" | base64 --- this will encode the password
+echo <encoded password> | base64 --- this will decode the password

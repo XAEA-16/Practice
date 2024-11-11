@@ -1,0 +1,15 @@
+apiVersion: v1 
+kind: PersistantVolume
+metadata:
+  name: PersistantVolume
+  namespace: mysql
+  labels: 
+    app: mysql 
+spec:
+  storageClassName: manual
+  capacity: 
+    storage: 20Gi 
+  accessModes:
+    - ReadWriteOnce
+  hostpath:
+     path: "/mnt/data"

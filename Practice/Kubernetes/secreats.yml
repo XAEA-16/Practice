@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+  namespace: mysql
+  labels:
+    app: mysql
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: dHJhaW53aXRoc2h1YmhhbQ==
